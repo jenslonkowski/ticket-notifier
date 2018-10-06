@@ -2,6 +2,8 @@
   "name": "ticket-notifier",
   "version": "0.0.0",
   "scripts": {
+    "lint": "eslint .",
+    "precommit": "npm run lint",
     "start": "node index.js"
   },
   "repository": {
@@ -16,5 +18,13 @@
     "prompt": "^1.0.0",
     "puppeteer": "^1.9.0",
     "yargs": "^12.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.6.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "husky": "^1.1.1"
   }
 }
