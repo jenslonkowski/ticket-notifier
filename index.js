@@ -1,12 +1,11 @@
-const argv = require("yargs").argv;
-const prompt = require("prompt");
-const puppeteer = require("puppeteer");
+const { argv } = require('yargs');
+const prompt = require('prompt');
+const puppeteer = require('puppeteer');
 
 let browser;
 let page;
-let url = argv.url;
-let text = argv.text;
-let delay = argv.delay || 5;
+let { url, text } = argv;
+let delay = argv.delay || 5;
 
 async function checkPage() {
   console.log(`Checking URL: ${url}`);
@@ -15,37 +14,33 @@ async function checkPage() {
   if (content.includes(text)) {
     setTimeout(checkPage, (delay * 1000));
   } else {
-    console.log("\u0007", "Tickets available!");
+    console.log('\u0007', 'Tickets available!');
   }
 }
 
 (async () => {
   browser = await puppeteer.launch({
-    headless: false
+    headless: false,
   });
   const pages = await browser.pages();
-  page = pages[0];
+  [page] = pages;
 
   if (!url || !text) {
     prompt.start();
-    prompt.get(
-      [{
-        name: "url",
-        description: "URL to check"
-      }, {
-        name: "text",
-        description: "Text on website when no tickets available"
-      }, {
-        name: "delay",
-        description: "Delay in seconds",
-        default: delay
-      }],
-      (error, result) => {
-        url = result.url;
-        text = result.text;
-        delay = result.delay;
-      }
-    );
+    prompt.get([{
+      name: 'url',
+      description: 'URL to check',
+    }, {
+      name: 'text',
+      description: 'Text on website when no tickets available',
+    }, {
+      name: 'delay',
+      description: 'Delay in seconds',
+      default: delay,
+    }],
+    (error, result) => {
+      ({ url, text, delay } = result);
+    });
   }
 
   checkPage();
