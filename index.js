@@ -1,4 +1,5 @@
 const { argv } = require('yargs');
+const nodeNotifier = require('node-notifier');
 const prompt = require('prompt');
 const puppeteer = require('puppeteer');
 
@@ -14,7 +15,12 @@ async function checkPage() {
   if (content.includes(text)) {
     setTimeout(checkPage, (delay * 1000));
   } else {
-    console.log('\u0007', 'Tickets available!');
+    const message = 'Tickets available!';
+    console.log('\u0007', message);
+    nodeNotifier.notify({
+      message,
+      sound: true,
+    });
   }
 }
 
