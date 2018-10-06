@@ -1,7 +1,9 @@
 {
   "name": "ticket-notifier",
   "version": "0.0.0",
-  "scripts": {},
+  "scripts": {
+    "start": "node index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jenslonkowski/ticket-notifier.git"
