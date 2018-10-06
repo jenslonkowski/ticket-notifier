@@ -1,8 +1,7 @@
 {
   "name": "ticket-notifier",
   "version": "0.0.0",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jenslonkowski/ticket-notifier.git"
@@ -10,5 +9,8 @@
   "bugs": {
     "url": "https://github.com/jenslonkowski/ticket-notifier/issues"
   },
-  "homepage": "https://github.com/jenslonkowski/ticket-notifier#readme"
+  "homepage": "https://github.com/jenslonkowski/ticket-notifier#readme",
+  "dependencies": {
+    "puppeteer": "^1.9.0"
+  }
 }
