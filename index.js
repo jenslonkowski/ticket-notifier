@@ -5,13 +5,14 @@ const puppeteer = require('puppeteer');
 
 let browser;
 let page;
-let { url, text } = argv;
+let { url, text, selector } = argv;
 let delay = argv.delay || 5;
 
 async function checkPage() {
   // eslint-disable-next-line no-console
   console.log(`Checking URL: ${url}`);
   await page.goto(url);
+  if (selector) await page.waitForSelector(selector);
   const content = await page.content();
   if (content.includes(text)) {
     setTimeout(checkPage, (delay * 1000));
@@ -48,11 +49,18 @@ async function launchBrowser() {
       name: 'delay',
       description: 'Delay in seconds',
       default: delay,
+    }, {
+      name: 'selector',
+      description: 'Selector on website to wait for before check',
+      default: undefined,
     }],
     (error, result) => {
       if (!error) {
-        ({ url, text, delay } = result);
-        const commandWithArgs = `npm start -- --url="${url}" --text="${text}" --delay=${delay}`;
+        ({
+          url, text, delay, selector,
+        } = result);
+        let commandWithArgs = `npm start -- --url="${url}" --text="${text}" --delay=${delay}`;
+        if (selector) commandWithArgs += ` --selector="${selector}"`;
         // eslint-disable-next-line no-console
         console.log(`To run this check without being prompted use:\n${commandWithArgs}`);
         launchBrowser();
