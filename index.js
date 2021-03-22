@@ -48,8 +48,10 @@ async function launchBrowser() {
       default: delay,
     }],
     (error, result) => {
-      ({ url, text, delay } = result);
-      launchBrowser();
+      if (!error) {
+        ({ url, text, delay } = result);
+        launchBrowser();
+      }
     });
   } else {
     launchBrowser();
