@@ -24,13 +24,16 @@ async function checkPage() {
   }
 }
 
-(async () => {
+async function launchBrowser() {
   browser = await puppeteer.launch({
     headless: false,
   });
   const pages = await browser.pages();
   [page] = pages;
+  checkPage();
+}
 
+(() => {
   if (!url || !text) {
     prompt.start();
     prompt.get([{
@@ -46,8 +49,9 @@ async function checkPage() {
     }],
     (error, result) => {
       ({ url, text, delay } = result);
+      launchBrowser();
     });
+  } else {
+    launchBrowser();
   }
-
-  checkPage();
 })();
