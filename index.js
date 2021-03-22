@@ -9,6 +9,7 @@ let { url, text } = argv;
 let delay = argv.delay || 5;
 
 async function checkPage() {
+  // eslint-disable-next-line no-console
   console.log(`Checking URL: ${url}`);
   await page.goto(url);
   const content = await page.content();
@@ -16,6 +17,7 @@ async function checkPage() {
     setTimeout(checkPage, (delay * 1000));
   } else {
     const message = 'Tickets available!';
+    // eslint-disable-next-line no-console
     console.log('\u0007', message);
     nodeNotifier.notify({
       message,
@@ -50,6 +52,9 @@ async function launchBrowser() {
     (error, result) => {
       if (!error) {
         ({ url, text, delay } = result);
+        const commandWithArgs = `npm start -- --url="${url}" --text="${text}" --delay=${delay}`;
+        // eslint-disable-next-line no-console
+        console.log(`To run this check without being prompted use:\n${commandWithArgs}`);
         launchBrowser();
       }
     });
