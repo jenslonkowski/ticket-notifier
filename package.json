@@ -14,7 +14,7 @@
   },
   "homepage": "https://github.com/jenslonkowski/ticket-notifier#readme",
   "dependencies": {
-    "node-notifier": "^9.0.1",
+    "node-notifier": "^11.0.0",
     "prompt": "^1.1.0",
     "puppeteer": "^7.1.0",
     "yargs": "^16.2.0"
